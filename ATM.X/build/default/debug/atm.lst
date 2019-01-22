@@ -1,0 +1,477 @@
+MPASM 5.82                           ATM.ASM   12-9-2018  15:34:02         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 #INCLUDE P16F84A.INC
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Sep 19 2018
+                      00005 ;  MPASM PIC16F84A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2018 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00209         LIST
+Warning[207]: Found label after column 1. (PIN_CODE_ADDRESS)
+  00000020            00002     PIN_CODE_ADDRESS EQU 0X20
+Warning[207]: Found label after column 1. (PIN_COUNTER_ADDRESS)
+  00000021            00003     PIN_COUNTER_ADDRESS EQU 0X21 
+Warning[207]: Found label after column 1. (PIN_CODE)
+  00000005            00004     PIN_CODE EQU B'00000101'
+Warning[207]: Found label after column 1. (PIN_COUNTER)
+  00000003            00005     PIN_COUNTER EQU 0X03 
+Warning[207]: Found label after column 1. (COUNTL)
+  00000022            00006     COUNTL EQU 0X22 
+Warning[207]: Found label after column 1. (COUNTH)
+  00000023            00007     COUNTH EQU 0X23 
+Warning[207]: Found label after column 1. (COUNTER1m_ADDRESS)
+  00000024            00008     COUNTER1m_ADDRESS EQU 0X24 
+Warning[207]: Found label after column 1. (COUNTER1m)
+  0000000A            00009     COUNTER1m EQU 0X0A 
+Warning[207]: Found label after column 1. (VALUE_ADDRESS)
+  00000025            00010     VALUE_ADDRESS EQU 0X25
+Warning[207]: Found label after column 1. (FLASH_COUNTER)
+  00000003            00011     FLASH_COUNTER EQU 0X03 
+Warning[207]: Found label after column 1. (FLASH_COUNTER_ADDRESS)
+  00000026            00012     FLASH_COUNTER_ADDRESS EQU 0X26 
+Warning[207]: Found label after column 1. (COUNTER1S)
+  0000000F            00013     COUNTER1S EQU 0X0F 
+Warning[207]: Found label after column 1. (COUNTER1SH)
+  00000001            00014     COUNTER1SH EQU 0X01
+Warning[207]: Found label after column 1. (COUNTER1SH_ADDRESS)
+  00000027            00015     COUNTER1SH_ADDRESS EQU 0X27
+Warning[207]: Found label after column 1. (COUNTER1S_ADDRESS)
+  00000028            00016     COUNTER1S_ADDRESS EQU 0X28
+                      00017     ORG 0X00 
+0000   2???           00018     GOTO INIT 
+                      00019     
+                      00020     
+                      00021     
+                      00022     
+Warning[207]: Found label after column 1. (INIT)
+0001                  00023     INIT 
+                      00024    ;INIT FOR PORTS  
+0001   1683           00025     BANKSEL TRISA 
+0002   300F           00026     MOVLW B'00001111' 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM 5.82                           ATM.ASM   12-9-2018  15:34:02         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0003   0085           00027     MOVWF TRISA 
+0004   3013           00028     MOVLW B'00010011'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0005   0086           00029     MOVWF TRISB 
+0006   1283           00030     BANKSEL PORTA 
+0007   0186           00031     CLRF PORTB
+0008   0185           00032     CLRF PORTA 
+                      00033    
+                      00034     
+                      00035     ;------------------------------INIT------------------------------------;
+                      00036     ;INIT DELAY COUNTER 
+0009   300A           00037     MOVLW COUNTER1m
+000A   00A4           00038     MOVWF COUNTER1m_ADDRESS
+                      00039     
+                      00040     ;INTI FLASH COUNTER 
+000B   3003           00041     MOVLW FLASH_COUNTER 
+000C   00A6           00042     MOVWF FLASH_COUNTER_ADDRESS 
+                      00043     
+                      00044     ;INIT DELAY 1 SECOND COUNTERS 
+000D   300F           00045     MOVLW COUNTER1S 
+000E   00A8           00046     MOVWF COUNTER1S_ADDRESS 
+000F   3001           00047     MOVLW COUNTER1SH
+0010   00A7           00048     MOVWF COUNTER1SH_ADDRESS 
+                      00049     
+                      00050     ;SAVING PIN CODE IN EEPROM 
+0011   1283           00051     BANKSEL EEADR ;  
+0012   3020           00052     MOVLW PIN_CODE_ADDRESS ; ADDRESS IN EEPROM 
+0013   0089           00053     MOVWF EEADR 
+0014   3005           00054     MOVLW PIN_CODE 
+0015   0088           00055     MOVWF EEDATA
+0016   1683           00056     BANKSEL EECON1 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0017   0188           00057     CLRF EECON1 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0018   1508           00058     BSF EECON1 , 2 
+0019   3055           00059     MOVLW 0X55 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001A   0089           00060     MOVWF EECON2 
+001B   30AA           00061     MOVLW 0XAA 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001C   0089           00062     MOVWF EECON2 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001D   1488           00063     BSF EECON1 , 1 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001E   0808           00064     MOVF EECON1 , W 
+001F   2???           00065     CALL TenMs
+                      00066     ;END OF INIT 
+                      00067     
+                      00068     ;-------------------------------MAIN------------------------------------;
+Warning[207]: Found label after column 1. (MAIN)
+0020                  00069     MAIN   
+0020   2???           00070     CALL CHECK_PIN 
+0021   2???           00071     CALL CUSTOMER_ACTION 
+MPASM 5.82                           ATM.ASM   12-9-2018  15:34:02         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0022   2???           00072     CALL TenMs
+0023   2???           00073     CALL CHECK_FEEDBACK 
+                      00074     ; PROGRAM FINISHED 
+Warning[207]: Found label after column 1. (DONE)
+0024   2???           00075     DONE GOTO DONE 
+                      00076 
+                      00077     ;---------------------------SUBROUTINES------------------------------;
+                      00078     ;CHECKING IF TRANSACTION DONE SUCCESSFULLY OR NOT  
+Warning[207]: Found label after column 1. (CHECK_FEEDBACK)
+0025                  00079     CHECK_FEEDBACK 
+                      00080         
+0025   1283           00081         BANKSEL PORTB 
+0026   1E06           00082         BTFSS PORTB , 4 
+0027   2???           00083         GOTO FLASHING_LED
+0028   1506           00084         BSF PORTB , 2 
+0029   0008           00085     RETURN 
+                      00086     
+                      00087     ;WITHDRAW / DEPOSIT SUBROUTINE 
+Warning[207]: Found label after column 1. (CUSTOMER_ACTION)
+002A                  00088     CUSTOMER_ACTION
+                      00089         
+002A   1283           00090         BANKSEL PORTB 
+Warning[207]: Found label after column 1. (BUTTON)
+002B                  00091         BUTTON  
+002B   1C86           00092         BTFSS PORTB , 1
+002C   2???           00093         GOTO BUTTON 
+002D   2???           00094         CALL Onems
+002E   1C06           00095         BTFSS PORTB , 0 
+002F   2???           00096         GOTO WITHDRAW   
+0030   2???           00097         GOTO DEPOSIT
+                      00098 
+Warning[207]: Found label after column 1. (DEPOSIT)
+0031                  00099     DEPOSIT
+0031   1283           00100         BANKSEL PORTA 
+0032   0805           00101         MOVF PORTA , W 
+0033   00A5           00102         MOVWF VALUE_ADDRESS
+0034   1825           00103         BTFSC VALUE_ADDRESS , 0 
+0035   2???           00104         GOTO TRY_AGAIN
+0036   18A5           00105         BTFSC VALUE_ADDRESS , 1 
+0037   2???           00106         GOTO TRY_AGAIN
+                      00107         
+0038   0EA5           00108         SWAPF VALUE_ADDRESS ,1
+0039   15A5           00109         BSF VALUE_ADDRESS , 3 
+003A   16A5           00110         BSF VALUE_ADDRESS , 5 
+003B   0825           00111         MOVF VALUE_ADDRESS , W 
+003C   0086           00112         MOVWF PORTB 
+003D   0008           00113         RETURN 
+Warning[207]: Found label after column 1. (TRY_AGAIN)
+003E                  00114     TRY_AGAIN 
+003E   2???           00115         CALL FLASHING_LED 
+003F   2???           00116         GOTO BUTTON
+0040   0008           00117     RETURN
+                      00118         
+MPASM 5.82                           ATM.ASM   12-9-2018  15:34:02         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00119     
+Warning[207]: Found label after column 1. (WITHDRAW)
+0041                  00120     WITHDRAW    
+0041   1283           00121         BANKSEL PORTA 
+0042   0805           00122         MOVF PORTA , W 
+0043   00A5           00123         MOVWF VALUE_ADDRESS 
+0044   1825           00124         BTFSC VALUE_ADDRESS , 0 
+0045   2???           00125         GOTO TRY_AGAIN
+0046   18A5           00126         BTFSC VALUE_ADDRESS , 1 
+0047   2???           00127         GOTO TRY_AGAIN2
+                      00128         
+0048   0EA5           00129         SWAPF VALUE_ADDRESS ,1
+0049   11A5           00130         BCF VALUE_ADDRESS , 3 
+004A   16A5           00131         BSF VALUE_ADDRESS , 5 
+004B   0825           00132         MOVF VALUE_ADDRESS , W 
+004C   0086           00133         MOVWF PORTB 
+004D   0008           00134         RETURN 
+Warning[207]: Found label after column 1. (TRY_AGAIN2)
+004E                  00135     TRY_AGAIN2 
+004E   2???           00136         CALL FLASHING_LED 
+004F   2???           00137         GOTO BUTTON
+                      00138         
+0050   0008           00139     RETURN 
+                      00140         
+                      00141 
+                      00142         
+                      00143     ;CHECKING PIN CODE SUBROUTINE 
+Warning[207]: Found label after column 1. (CHECK_PIN)
+0051                  00144     CHECK_PIN 
+0051   1283           00145         BANKSEL PORTA 
+Warning[207]: Found label after column 1. (_BUTTON)
+0052                  00146         _BUTTON 
+0052   1C86           00147         BTFSS PORTB , 1
+0053   2???           00148         GOTO _BUTTON
+0054   2???           00149         CALL Onems
+                      00150         ;READING PINCODE FROM EEPROM 
+0055   1283           00151         BANKSEL EEADR
+0056   3020           00152         MOVLW PIN_CODE_ADDRESS 
+0057   0089           00153         MOVWF EEADR 
+0058   1683           00154         BANKSEL EECON1 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0059   1408           00155         BSF EECON1 , 0 
+005A   1283           00156         BANKSEL EEDATA 
+005B   0808           00157         MOVF EEDATA, W 
+                      00158         ; MAKING SURE THAT THE ENTERED PIN CODE IS RIGHT 
+005C   0205           00159         SUBWF PORTA , W 
+005D   1903           00160         BTFSC STATUS , Z 
+005E   0008           00161         RETURN 
+005F   0BA1           00162         DECFSZ PIN_COUNTER_ADDRESS,1
+0060   2???           00163         GOTO CHECK_PIN
+Warning[207]: Found label after column 1. (INF)
+0061   2???           00164     INF     GOTO INF ;PROGRAM EXITS AFTER 3 WRONG PIN
+                      00165     
+MPASM 5.82                           ATM.ASM   12-9-2018  15:34:02         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00166     
+Warning[207]: Found label after column 1. (FLASHING_LED)
+0062                  00167     FLASHING_LED 
+Warning[207]: Found label after column 1. (FLASH)
+0062                  00168     FLASH
+                      00169         ;BIT RB3 SHOULD TELL THE OTHER PIC THE CUSTOMER ACTION 
+                      00170         ;TO DO FLASHING WE NEED TO MAKE RB4-RB7 INPUTS SO WE DON'T SEND TO THE OTHER
+                      00171         ;PIC RUBISH VALUES .. 
+                      00172         ;BANKSEL TRISB 
+                      00173         ;MOVLW B'11111011'
+                      00174         ;MOVWF TRISB 
+0062   1283           00175         BANKSEL PORTB
+0063   1506           00176         BSF PORTB , 2
+0064   2???           00177         CALL Onems 
+0065   1283           00178         BANKSEL PORTB
+0066   1106           00179         BCF PORTB , 2 
+0067   2???           00180         CALL Onems 
+0068   0BA6           00181         DECFSZ FLASH_COUNTER_ADDRESS , 1 
+0069   2???           00182         GOTO FLASH 
+                      00183         ;BANKSEL TRISB  
+                      00184         ;MOVLW B'00000011'
+                      00185         ;MOVWF TRISB 
+006A   3003           00186         MOVLW FLASH_COUNTER 
+006B   00A6           00187         MOVWF FLASH_COUNTER_ADDRESS 
+006C   0008           00188     RETURN 
+                      00189     
+006D   0008           00190     RETURN 
+                      00191     ;10 ms SUBROUTINE 
+Warning[207]: Found label after column 1. (TenMs)
+006E   0000           00192     TenMs nop; beginning of subroutine
+006F   300D           00193         movlw D'13'
+0070   00A3           00194         movwf COUNTH
+0071   30FA           00195         movlw D'250'
+0072   00A2           00196         movwf COUNTL
+Warning[207]: Found label after column 1. (Ten1)
+0073   0BA2           00197         Ten1 decfsz COUNTL , F; inner loop
+0074   2???           00198         goto Ten1
+0075   0BA3           00199         decfsz COUNTH , F ; outer loop
+0076   2???           00200         goto Ten1
+0077   0008           00201     return
+                      00202 
+                      00203 ;1 ms SUBROUTINE 
+0078                  00204 Onems  
+Warning[207]: Found label after column 1. (DELAY)
+0078                  00205     DELAY 
+0078   2???           00206     CALL TenMs
+0079   0BA4           00207     DECFSZ COUNTER1m_ADDRESS , 1 
+007A   2???           00208     GOTO DELAY 
+007B   300A           00209     MOVLW COUNTER1m
+007C   00A4           00210     MOVWF COUNTER1m_ADDRESS
+Warning[203]: Found opcode in column 1. (RETURN)
+007D   0008           00211 RETURN 
+007E                  00212 Ones 
+MPASM 5.82                           ATM.ASM   12-9-2018  15:34:02         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[207]: Found label after column 1. (DELAY1S)
+007E                  00213     DELAY1S 
+007E   2???           00214     CALL Onems
+007F   0BA8           00215     DECFSZ COUNTER1S_ADDRESS,1
+0080   2???           00216     GOTO DELAY1S
+                      00217     ;DECFSZ COUNTER1SH_ADDRESS , 1 
+                      00218     ;GOTO DELAY1S 
+0081   300F           00219     MOVLW COUNTER1S
+0082   00A8           00220     MOVWF COUNTER1S_ADDRESS
+0083   300F           00221     MOVLW COUNTER1S 
+0084   00A8           00222     MOVWF COUNTER1S_ADDRESS 
+                      00223     
+Warning[203]: Found opcode in column 1. (RETURN)
+0085   0008           00224 RETURN 
+Warning[205]: Found directive in column 1. (END)
+                      00225 END
+MPASM 5.82                           ATM.ASM   12-9-2018  15:34:02         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+BUTTON                            0000002B
+C                                 00000000
+CHECK_FEEDBACK                    00000025
+CHECK_PIN                         00000051
+COUNTER1S                         0000000F
+COUNTER1SH                        00000001
+COUNTER1SH_ADDRESS                00000027
+COUNTER1S_ADDRESS                 00000028
+COUNTER1m                         0000000A
+COUNTER1m_ADDRESS                 00000024
+COUNTH                            00000023
+COUNTL                            00000022
+CUSTOMER_ACTION                   0000002A
+DC                                00000001
+DELAY                             00000078
+DELAY1S                           0000007E
+DEPOSIT                           00000031
+DONE                              00000024
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+F                                 00000001
+FLASH                             00000062
+FLASHING_LED                      00000062
+FLASH_COUNTER                     00000003
+FLASH_COUNTER_ADDRESS             00000026
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INF                               00000061
+INIT                              00000001
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+MAIN                              00000020
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+OPTION_REG                        00000081
+Onems                             00000078
+Ones                              0000007E
+PCL                               00000002
+PCLATH                            0000000A
+PIN_CODE                          00000005
+PIN_CODE_ADDRESS                  00000020
+PIN_COUNTER                       00000003
+PIN_COUNTER_ADDRESS               00000021
+PORTA                             00000005
+MPASM 5.82                           ATM.ASM   12-9-2018  15:34:02         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PORTB                             00000006
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RP0                               00000005
+RP1                               00000006
+STATUS                            00000003
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRY_AGAIN                         0000003E
+TRY_AGAIN2                        0000004E
+Ten1                              00000073
+TenMs                             0000006E
+VALUE_ADDRESS                     00000025
+W                                 00000000
+WITHDRAW                          00000041
+MPASM 5.82                           ATM.ASM   12-9-2018  15:34:02         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BUTTON                           00000052
+_CONFIG                           00002007
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F84A                          00000001
+__DEBUG                           
+__MPLAB_DEBUGGER_SIMULATOR        1
+
+Errors   :     0
+Warnings :    37 reported,     0 suppressed
+Messages :     9 reported,     0 suppressed
+
+

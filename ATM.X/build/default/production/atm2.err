@@ -1,0 +1,3 @@
+Warning[205] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM2.ASM 1 : Found directive in column 1. (ORG)
+Warning[203] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM2.ASM 2 : Found opcode in column 1. (GOTO)
+Warning[205] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM2.ASM 4 : Found directive in column 1. (END)

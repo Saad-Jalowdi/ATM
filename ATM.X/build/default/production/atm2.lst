@@ -1,0 +1,27 @@
+MPASM 5.82                          ATM2.ASM   12-8-2018  12:17:04         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[205]: Found directive in column 1. (ORG)
+                      00001 ORG 0X00 
+Warning[203]: Found opcode in column 1. (GOTO)
+0000   2???           00002 GOTO INIT     
+0001   2???           00003 INIT    GOTO INIT 
+Warning[205]: Found directive in column 1. (END)
+                      00004 END 
+MPASM 5.82                          ATM2.ASM   12-8-2018  12:17:04         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+INIT                              00000001
+__16F84A                          00000001
+
+Errors   :     0
+Warnings :     3 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

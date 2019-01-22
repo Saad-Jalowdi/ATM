@@ -1,0 +1,45 @@
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 2 : Found label after column 1. (PIN_CODE_ADDRESS)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 3 : Found label after column 1. (PIN_COUNTER_ADDRESS)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 4 : Found label after column 1. (PIN_CODE)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 5 : Found label after column 1. (PIN_COUNTER)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 6 : Found label after column 1. (COUNTL)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 7 : Found label after column 1. (COUNTH)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 8 : Found label after column 1. (COUNTER1m_ADDRESS)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 9 : Found label after column 1. (COUNTER1m)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 10 : Found label after column 1. (VALUE_ADDRESS)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 11 : Found label after column 1. (FLASH_COUNTER)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 12 : Found label after column 1. (FLASH_COUNTER_ADDRESS)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 13 : Found label after column 1. (COUNTER1S)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 14 : Found label after column 1. (COUNTER1SH)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 15 : Found label after column 1. (COUNTER1SH_ADDRESS)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 16 : Found label after column 1. (COUNTER1S_ADDRESS)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 23 : Found label after column 1. (INIT)
+Message[302] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 27 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 29 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 57 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 58 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 60 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 62 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 63 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 64 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 69 : Found label after column 1. (MAIN)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 79 : Found label after column 1. (CHECK_FEEDBACK)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 87 : Found label after column 1. (CUSTOMER_ACTION)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 90 : Found label after column 1. (BUTTON)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 98 : Found label after column 1. (DEPOSIT)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 115 : Found label after column 1. (TRY_AGAIN)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 121 : Found label after column 1. (WITHDRAW)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 136 : Found label after column 1. (TRY_AGAIN2)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 145 : Found label after column 1. (CHECK_PIN)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 147 : Found label after column 1. (_BUTTON)
+Message[302] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 156 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 165 : Found label after column 1. (INF)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 168 : Found label after column 1. (FLASHING_LED)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 169 : Found label after column 1. (FLASH)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 193 : Found label after column 1. (TenMs)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 198 : Found label after column 1. (Ten1)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 206 : Found label after column 1. (DELAY)
+Warning[203] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 212 : Found opcode in column 1. (RETURN)
+Warning[207] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 214 : Found label after column 1. (DELAY1S)
+Warning[203] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 225 : Found opcode in column 1. (RETURN)
+Warning[205] C:\USERS\SAAD\MPLABXPROJECTS\ATM.X\ATM.ASM 226 : Found directive in column 1. (END)
